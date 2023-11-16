@@ -2,6 +2,7 @@ package com.example.padelbook
 
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -9,10 +10,13 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.padelbook.databinding.ActivityMainBinding
+import com.example.padelbook.models.SharedViewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    val sharedViewModel: SharedViewModel by viewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +40,8 @@ class MainActivity : AppCompatActivity() {
         val email = intent.getStringExtra("email")
         if (email != null) {
             Log.d("main", email)
+            sharedViewModel.email = email
+
         }
         // Pass the user's email to HomeFragment
         if (email != null) {
