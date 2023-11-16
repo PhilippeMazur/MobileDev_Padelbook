@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -30,10 +31,24 @@ class HomeFragment : Fragment() {
 
         val email = arguments?.getString("email")
 
+        val textUsername: TextView = binding.textUsername
+        val buttonBookCourt: Button = binding.buttonBookCourt
+
         val textView: TextView = binding.textHome
         homeViewModel.text.observe(viewLifecycleOwner) {
             textView.text = "Welcome " + email + "!"
         }
+
+        homeViewModel.textUsername.observe(viewLifecycleOwner) {
+            textUsername.text = it
+        }
+
+        // Set OnClickListener for the "Book a Court" button
+        buttonBookCourt.setOnClickListener {
+            // Add your code for handling the "Book a Court" button click event
+            // e.g., navigate to the booking screen
+        }
+
         return root
     }
 
