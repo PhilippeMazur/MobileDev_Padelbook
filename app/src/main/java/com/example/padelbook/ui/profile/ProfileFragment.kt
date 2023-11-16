@@ -28,6 +28,6 @@ class ProfileFragment : Fragment() {
         // Replace the following with actual user data
         userNameTextView.text = "John Doe"
         locationTextView.text = "Plays in: New York"
-        matchesPlayedTextView.text = "Matches Played: 50"
+        matchesPlayedTextView.text = "50"
     }
 }
