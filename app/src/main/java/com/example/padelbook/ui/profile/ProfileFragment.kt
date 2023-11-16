@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import com.example.padelbook.R
 import com.example.padelbook.models.SharedViewModel
 import com.google.firebase.firestore.FirebaseFirestore
@@ -40,28 +41,28 @@ class ProfileFragment : Fragment() {
 
         // Create a query to find the document with the matching email
         if (email != null) {
-            Log.d("testing", email)
             val query: Query = db.collection("users").whereEqualTo("email", email.toString())
             // Retrieve the document
             query.get().addOnSuccessListener { querySnapshot ->
                 for (document in querySnapshot) {
-                    Log.d("testing", "${document.id} => ${document.data}")
 
-                    sharedViewModel.name = document.getString("name")
-                    sharedViewModel.location = document.getString("location")
-                    sharedViewModel.matches = document.getString("matches")
-                //do try catch
+                    sharedViewModel.name.value = document.get("name").toString()
+                    sharedViewModel.location.value = document.get("location").toString()
+                    sharedViewModel.matches.value = document.get("matches").toString()
+
+                    userNameTextView.text = sharedViewModel.name.value
+                    locationTextView.text = sharedViewModel.location.value
+                    matchesPlayedTextView.text = sharedViewModel.matches.value
 
 
-                    // Use the document data to set the user-specific data
-                    //userNameTextView.text = document.getString("name")
-                    //locationTextView.text = document.getString("location")
-                    //matchesPlayedTextView.text = document.getString("matches")
                 }
             }.addOnFailureListener { exception ->
                 Log.w("testing", "Error getting documents.", exception)
             }
         }
+
+
+
 
 
     }
