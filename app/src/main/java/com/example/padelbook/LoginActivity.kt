@@ -56,8 +56,11 @@ class LoginActivity : AppCompatActivity() {
 
     private fun updateUI(user: FirebaseUser?) {
         if (user != null) {
+            val user = FirebaseAuth.getInstance().currentUser
             // User is signed in
-            startActivity(Intent(this, MainActivity::class.java))
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("email", user?.email)
+            startActivity(intent)
             finish()
         } else {
             // User is signed out
