@@ -33,33 +33,9 @@ class ProfileFragment : Fragment() {
         val locationTextView = view.findViewById<TextView>(R.id.textViewLocation)
         val matchesPlayedTextView = view.findViewById<TextView>(R.id.textViewMatchesPlayed)
 
-        // Retrieve the email from the arguments
-        val email = sharedViewModel.email
-
-        // Get a reference to the Firestore database
-        val db = FirebaseFirestore.getInstance()
-
-        // Create a query to find the document with the matching email
-        if (email != null) {
-            val query: Query = db.collection("users").whereEqualTo("email", email.toString())
-            // Retrieve the document
-            query.get().addOnSuccessListener { querySnapshot ->
-                for (document in querySnapshot) {
-
-                    sharedViewModel.name.value = document.get("name").toString()
-                    sharedViewModel.location.value = document.get("location").toString()
-                    sharedViewModel.matches.value = document.get("matches").toString()
-
-                    userNameTextView.text = sharedViewModel.name.value
-                    locationTextView.text = sharedViewModel.location.value
-                    matchesPlayedTextView.text = sharedViewModel.matches.value
-
-
-                }
-            }.addOnFailureListener { exception ->
-                Log.w("testing", "Error getting documents.", exception)
-            }
-        }
+        userNameTextView.text = sharedViewModel.name.value
+        locationTextView.text = sharedViewModel.location.value
+        matchesPlayedTextView.text = sharedViewModel.matches.value
 
 
 

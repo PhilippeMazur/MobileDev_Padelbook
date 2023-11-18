@@ -11,6 +11,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.padelbook.databinding.ActivityMainBinding
 import com.example.padelbook.models.SharedViewModel
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 
 class MainActivity : AppCompatActivity() {
 
@@ -49,6 +51,24 @@ class MainActivity : AppCompatActivity() {
             val bundle = Bundle()
             bundle.putString("email", email)
             navController.navigate(R.id.navigation_home, bundle)
+        }
+        // Get a reference to the Firestore database
+        val db = FirebaseFirestore.getInstance()
+
+        // Create a query to find the document with the matching email
+        if (email != null) {
+            val query: Query = db.collection("users").whereEqualTo("email", sharedViewModel.email.toString())
+            // Retrieve the document
+            query.get().addOnSuccessListener { querySnapshot ->
+                for (document in querySnapshot) {
+
+                    sharedViewModel.name.value = document.get("name").toString()
+                    sharedViewModel.location.value = document.get("location").toString()
+                    sharedViewModel.matches.value = document.get("matches").toString()
+                }
+            }.addOnFailureListener { exception ->
+                Log.w("testing", "Error getting documents.", exception)
+            }
         }
     }
 }
