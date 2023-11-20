@@ -49,44 +49,5 @@ class MainActivity : AppCompatActivity() {
         } catch (e:Exception) {
             Log.d("error", "email is not found")
         }
-        /*
-        // Retrieve the user's email from the intent
-        val email = intent.getStringExtra("email")
-        if (email != null) {
-            Log.d("main", email)
-            sharedViewModel.email = email
-
-        }
-        // Pass the user's email to HomeFragment
-        if (email != null) {
-            // Pass the user's email to HomeFragment
-            val bundle = Bundle()
-            bundle.putString("email", email)
-            navController.navigate(R.id.navigation_home, bundle)
-        }
-        // Get a reference to the Firestore database
-        val db = FirebaseFirestore.getInstance()
-
-        // Create a query to find the document with the matching email
-        if (email != null) {
-            val query: Query = db.collection("users").whereEqualTo("email", sharedViewModel.email.toString())
-            // Retrieve the document
-            query.get().addOnSuccessListener { querySnapshot ->
-                for (document in querySnapshot) {
-
-                    //sharedViewModel.name.value = document.get("name").toString()
-
-                    sharedViewModel.Player.name.value = document.get("name").toString()
-                    sharedViewModel.Player.location.value = document.get("location").toString()
-                    sharedViewModel.Player.matches.value = document.get("matches").toString()
-
-                    //sharedViewModel.location.value = document.get("location").toString()
-                    //sharedViewModel.matches.value = document.get("matches").toString()
-                }
-            }.addOnFailureListener { exception ->
-                Log.w("testing", "Error getting documents.", exception)
-            }
-        }
-         */
     }
 }

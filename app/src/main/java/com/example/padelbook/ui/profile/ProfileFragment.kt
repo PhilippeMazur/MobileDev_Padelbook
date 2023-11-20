@@ -9,8 +9,10 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import com.example.padelbook.R
 import com.example.padelbook.models.SharedViewModel
+import com.google.android.material.tabs.TabLayout
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 
@@ -36,9 +38,34 @@ class ProfileFragment : Fragment() {
         userNameTextView.text = sharedViewModel.Player.name.value
         locationTextView.text = sharedViewModel.Player.location.value
         matchesPlayedTextView.text = sharedViewModel.Player.matches.value
-        
 
+        val tabLayout = view.findViewById<TabLayout>(R.id.navigationTabs)
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                val fragmentManager = childFragmentManager
+                val fragmentTransaction = fragmentManager.beginTransaction()
 
+                when (tab.position) {
+                    0 -> {
+                        val activityFragment = ActivityFragment()
+                        fragmentTransaction.replace(R.id.showFragment, activityFragment)
+                    }
+                    1 -> {
+                        val preferencesFragment = PreferencesFragment()
+                        fragmentTransaction.replace(R.id.showFragment, preferencesFragment)
+                    }
+                }
+
+                fragmentTransaction.commit()
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {}
+
+            override fun onTabReselected(tab: TabLayout.Tab) {}
+        })
 
     }
+
+
+
 }

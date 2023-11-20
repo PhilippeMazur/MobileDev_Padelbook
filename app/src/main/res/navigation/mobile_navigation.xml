@@ -22,4 +22,15 @@
         android:name="com.example.padelbook.ui.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/activityFragment"
+        android:name="com.example.padelbook.ui.profile.ActivityFragment"
+        android:label="ActivityFragment" />
+
+    <fragment
+        android:id="@+id/preferencesFragment"
+        android:name="com.example.padelbook.ui.profile.PreferencesFragment"
+        android:label="PreferencesFragment" />
+
 </navigation>
