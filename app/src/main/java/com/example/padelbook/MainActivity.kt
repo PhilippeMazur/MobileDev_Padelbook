@@ -11,6 +11,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.padelbook.databinding.ActivityMainBinding
 import com.example.padelbook.models.SharedViewModel
+import com.example.padelbook.service.PadelService
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 
@@ -18,6 +19,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     val sharedViewModel: SharedViewModel by viewModels()
+    val service: PadelService = PadelService();
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +40,16 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
+
+        var email = ""
+        try {
+            email = intent.getStringExtra("email").toString()
+            service.GetData(email, sharedViewModel, navController)
+
+        } catch (e:Exception) {
+            Log.d("error", "email is not found")
+        }
+        /*
         // Retrieve the user's email from the intent
         val email = intent.getStringExtra("email")
         if (email != null) {
@@ -62,13 +74,19 @@ class MainActivity : AppCompatActivity() {
             query.get().addOnSuccessListener { querySnapshot ->
                 for (document in querySnapshot) {
 
-                    sharedViewModel.name.value = document.get("name").toString()
-                    sharedViewModel.location.value = document.get("location").toString()
-                    sharedViewModel.matches.value = document.get("matches").toString()
+                    //sharedViewModel.name.value = document.get("name").toString()
+
+                    sharedViewModel.Player.name.value = document.get("name").toString()
+                    sharedViewModel.Player.location.value = document.get("location").toString()
+                    sharedViewModel.Player.matches.value = document.get("matches").toString()
+
+                    //sharedViewModel.location.value = document.get("location").toString()
+                    //sharedViewModel.matches.value = document.get("matches").toString()
                 }
             }.addOnFailureListener { exception ->
                 Log.w("testing", "Error getting documents.", exception)
             }
         }
+         */
     }
 }

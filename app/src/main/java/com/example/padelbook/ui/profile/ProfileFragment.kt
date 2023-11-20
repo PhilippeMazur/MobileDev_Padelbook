@@ -33,11 +33,10 @@ class ProfileFragment : Fragment() {
         val locationTextView = view.findViewById<TextView>(R.id.textViewLocation)
         val matchesPlayedTextView = view.findViewById<TextView>(R.id.textViewMatchesPlayed)
 
-        userNameTextView.text = sharedViewModel.name.value
-        locationTextView.text = sharedViewModel.location.value
-        matchesPlayedTextView.text = sharedViewModel.matches.value
-
-
+        userNameTextView.text = sharedViewModel.Player.name.value
+        locationTextView.text = sharedViewModel.Player.location.value
+        matchesPlayedTextView.text = sharedViewModel.Player.matches.value
+        
 
 
 
