@@ -8,6 +8,8 @@ class SharedViewModel : ViewModel() {
     val name = MutableLiveData<String>()
     val location = MutableLiveData<String>()
     val matches = MutableLiveData<String>()
+    val Player: Player = Player();
+    val Preferences: Preferences = Preferences();
 
 
 }
