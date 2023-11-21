@@ -31,6 +31,16 @@
     <fragment
         android:id="@+id/preferencesFragment"
         android:name="com.example.padelbook.ui.profile.PreferencesFragment"
+        android:label="PreferencesFragment"
+        tools:layout="@layout/fragment_preferences">
+        <action
+            android:id="@+id/action_preferencesFragment_to_editPreferencesFragment"
+            app:destination="@id/editPreferencesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editPreferencesFragment"
+        android:name="com.example.padelbook.ui.profile.EditPreferencesFragment"
         android:label="PreferencesFragment" />
 
 </navigation>
