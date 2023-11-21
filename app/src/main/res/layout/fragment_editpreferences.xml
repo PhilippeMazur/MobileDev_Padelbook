@@ -44,8 +44,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:ems="10"
-                    android:inputType="text"
-                    android:text="Name" />
+                    android:inputType="text" />
 
             </LinearLayout>
 
@@ -77,8 +76,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:ems="10"
-                    android:inputType="text"
-                    android:text="Name" />
+                    android:inputType="text" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -109,8 +107,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:ems="10"
-                    android:inputType="text"
-                    android:text="Name" />
+                    android:inputType="text" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -142,8 +139,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:ems="10"
-                    android:inputType="text"
-                    android:text="Name" />
+                    android:inputType="text" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
