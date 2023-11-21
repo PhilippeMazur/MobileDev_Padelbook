@@ -52,4 +52,37 @@ class PadelService {
             }
         }
     }
+    fun UpdatePreferences(email: String, sharedViewModel: SharedViewModel) {
+        // Retrieve the user's email from the intent
+        if (email != null) {
+            Log.d("main", email)
+            sharedViewModel.email = email
+
+        }
+        // Pass the user's email to HomeFragment
+        if (email != null) {
+            // Pass the user's email to HomeFragment
+            val bundle = Bundle()
+            bundle.putString("email", email)
+        }
+        // Get a reference to the Firestore database
+        val db = FirebaseFirestore.getInstance()
+
+        // Create a query to find the document with the matching email
+        if (email != null) {
+            val query: Query =
+                db.collection("users").whereEqualTo("email", sharedViewModel.email.toString())
+            // Retrieve the document
+            query.get().addOnSuccessListener { querySnapshot ->
+                for (document in querySnapshot) {
+                    sharedViewModel.Preferences.prefered_hand.value = document.get("prefered_hand").toString()
+                    sharedViewModel.Preferences.prefered_position.value = document.get("prefered_position").toString()
+                    sharedViewModel.Preferences.prefered_time.value = document.get("prefered_time").toString()
+                    sharedViewModel.Preferences.prefered_match_type.value = document.get("prefered_match_type").toString()
+                }
+            }.addOnFailureListener { exception ->
+                Log.w("testing", "Error getting documents.", exception)
+            }
+        }
+    }
 }

@@ -11,10 +11,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.padelbook.R
 import com.example.padelbook.models.SharedViewModel
+import com.example.padelbook.service.PadelService
 import com.google.firebase.firestore.FirebaseFirestore
 
 class EditPreferencesFragment : Fragment() {
     val sharedViewModel: SharedViewModel by activityViewModels()
+    val service: PadelService = PadelService();
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,7 +55,10 @@ class EditPreferencesFragment : Fragment() {
                         .addOnFailureListener { e -> Log.w("updateDB", "Error updating document", e) }
                 }
             }.addOnFailureListener { e -> Log.w("updateDB", "Error getting documents", e) }
-
+            sharedViewModel.Preferences.prefered_hand.value = edit_preference_hand.text.toString();
+            sharedViewModel.Preferences.prefered_position.value = edit_preference_position.text.toString();
+            sharedViewModel.Preferences.prefered_time.value = edit_preference_time.text.toString();
+            sharedViewModel.Preferences.prefered_match_type.value = edit_preference_matchtype.text.toString();
             findNavController().navigateUp()
         }
 
