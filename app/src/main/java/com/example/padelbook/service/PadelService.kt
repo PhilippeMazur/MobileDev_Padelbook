@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.util.Log
 import androidx.navigation.NavController
 import com.example.padelbook.R
+import com.example.padelbook.models.Match
 import com.example.padelbook.models.SharedViewModel
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+
 
 class PadelService {
     fun GetData(email:String, sharedViewModel: SharedViewModel, navController: NavController) {
@@ -44,6 +46,8 @@ class PadelService {
                     sharedViewModel.Preferences.prefered_time.value = document.get("prefered_time").toString()
                     sharedViewModel.Preferences.prefered_match_type.value = document.get("prefered_match_type").toString()
 
+                    checkIfPlayerIsInMatch(sharedViewModel.Player.name.value.toString(), db, sharedViewModel)
+
                     //sharedViewModel.location.value = document.get("location").toString()
                     //sharedViewModel.matches.value = document.get("matches").toString()
                 }
@@ -52,6 +56,7 @@ class PadelService {
             }
         }
     }
+
     fun UpdatePreferences(email: String, sharedViewModel: SharedViewModel) {
         // Retrieve the user's email from the intent
         if (email != null) {
@@ -85,4 +90,38 @@ class PadelService {
             }
         }
     }
-}
+
+    fun checkIfPlayerIsInMatch(name:String, db:FirebaseFirestore, sharedViewModel: SharedViewModel) {
+
+        db.collection("matches")
+            .whereArrayContains("players", name)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                if (querySnapshot.isEmpty) {
+                    // No matches found
+                } else {
+                    // Matches found
+                    for (document in querySnapshot) {
+                        // Handle each document
+                        val valuesList: List<Any> = document.data.values.toList()
+                        val match = Match()
+                        match.p1.value = document.get("p1") as String
+                        match.p2.value = document.get("p2") as String
+                        match.p3.value = document.get("p3") as String
+                        match.p4.value = document.get("p4") as String
+                        sharedViewModel.matchList.add(match)
+                        sharedViewModel.matchList.forEach { match ->
+                            // Do something with match
+                            Log.d("matches", match.p1.value.toString())
+                            Log.d("matches", match.p2.value.toString())
+                            Log.d("matches", match.p3.value.toString())
+                            Log.d("matches", match.p4.value.toString())
+
+                        }
+                    }
+                }
+            } .addOnFailureListener {
+                Log.d("matches", "error")
+            }
+    }
+    }
