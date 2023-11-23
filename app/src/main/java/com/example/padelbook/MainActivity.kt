@@ -2,6 +2,7 @@ package com.example.padelbook
 
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -9,10 +10,17 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.padelbook.databinding.ActivityMainBinding
+import com.example.padelbook.models.SharedViewModel
+import com.example.padelbook.service.PadelService
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    val sharedViewModel: SharedViewModel by viewModels()
+    val service: PadelService = PadelService();
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,17 +40,14 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-        // Retrieve the user's email from the intent
-        val email = intent.getStringExtra("email")
-        if (email != null) {
-            Log.d("main", email)
-        }
-        // Pass the user's email to HomeFragment
-        if (email != null) {
-            // Pass the user's email to HomeFragment
-            val bundle = Bundle()
-            bundle.putString("email", email)
-            navController.navigate(R.id.navigation_home, bundle)
+
+        var email = ""
+        try {
+            email = intent.getStringExtra("email").toString()
+            service.GetData(email, sharedViewModel, navController)
+
+        } catch (e:Exception) {
+            Log.d("error", "email is not found")
         }
     }
 }
