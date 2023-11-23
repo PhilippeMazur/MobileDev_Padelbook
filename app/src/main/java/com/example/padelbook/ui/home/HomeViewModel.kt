@@ -10,4 +10,14 @@ class HomeViewModel : ViewModel() {
         value = ""
     }
     val text: LiveData<String> = _text
+
+    private val _textWelcome = MutableLiveData<String>().apply {
+        value = "Welcome"
+    }
+    val textWelcome: LiveData<String> = _textWelcome
+
+    private val _textUsername = MutableLiveData<String>().apply {
+        value = "John Doe" // Replace with the actual username
+    }
+    val textUsername: LiveData<String> = _textUsername
 }

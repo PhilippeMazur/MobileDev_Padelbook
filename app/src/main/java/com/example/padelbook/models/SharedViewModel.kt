@@ -10,6 +10,6 @@ class SharedViewModel : ViewModel() {
     val matches = MutableLiveData<String>()
     val Player: Player = Player();
     val Preferences: Preferences = Preferences();
-
+    val matchList: MutableList<Match> = mutableListOf();
 
 }

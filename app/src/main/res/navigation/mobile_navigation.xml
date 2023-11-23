@@ -24,6 +24,7 @@
         tools:layout="@layout/fragment_profile" />
 
     <fragment
+
         android:id="@+id/activityFragment"
         android:name="com.example.padelbook.ui.profile.ActivityFragment"
         android:label="ActivityFragment" />
@@ -43,4 +44,9 @@
         android:name="com.example.padelbook.ui.profile.EditPreferencesFragment"
         android:label="PreferencesFragment" />
 
+    <fragment
+        android:id="@+id/bookCourtFragment"
+        android:name="com.example.padelbook.ui.bookCourt.BookCourtFragment"
+        android:label="BookCourtFragment"
+        tools:layout="@layout/fragment_book_court" />
 </navigation>
