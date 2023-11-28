@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.navigation.NavController
 import com.example.padelbook.R
+import com.example.padelbook.models.CreateMatch
 import com.example.padelbook.models.Match
 import com.example.padelbook.models.SharedViewModel
 import com.google.firebase.firestore.FirebaseFirestore
@@ -12,6 +13,8 @@ import com.google.firebase.firestore.Query
 
 class PadelService {
     fun GetData(email:String, sharedViewModel: SharedViewModel, navController: NavController) {
+
+
         // Retrieve the user's email from the intent
         if (email != null) {
             Log.d("main", email)
@@ -130,4 +133,26 @@ class PadelService {
                 Log.d("matches", "error")
             }
     }
+
+    fun createMatch(createMatch: CreateMatch) {
+        val db = FirebaseFirestore.getInstance()
+        // Get a reference to the 'matches' collection
+        val matchesCollection = db.collection("matches")
+
+        // Create a new document in the 'matches' collection
+        matchesCollection.add(createMatch)
+            .addOnSuccessListener { documentReference ->
+                // Handle success
+                val matchId = documentReference.id
+                println("Match added successfully with ID: $matchId")
+                Log.d("post", "Match added successfully with ID: $matchId")
+            }
+            .addOnFailureListener { e ->
+                // Handle failure
+                println("Error adding match to the database: $e")
+                Log.d("post", "$e")
+
+            }
     }
+}
+
