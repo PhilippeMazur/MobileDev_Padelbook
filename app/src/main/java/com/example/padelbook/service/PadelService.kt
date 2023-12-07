@@ -104,14 +104,22 @@ class PadelService {
                     for (document in querySnapshot) {
                         // Handle each document
                         val valuesList: List<Any> = document.data.values.toList()
-                        val nameList: List<String> = valuesList.get(0) as List<String>
+                        //val nameList: List<String> = valuesList.get(2) as List<String>
+
+                        //val thirdValue: String = valuesList.getOrNull(2) as? String ?: ""
+
+// Split the string into an array using commas as the delimiter
+                        //val nameList: List<String> = thirdValue.split(",").map { it.trim() }
+                        val players = document["players"].toString()
+                        val playersArray = players.split(", ")
                         val match = Match()
-                        match.p1.value = nameList.get(0)
-                        match.p2.value = nameList.get(1)
-                        match.p3.value = nameList.get(2)
-                        match.p4.value = nameList.get(3)
-                        match.location.value = valuesList.get(1).toString()
-                        match.time.value = valuesList.get(2).toString()
+                        match.date.value = document.get("date").toString()
+                        match.p1.value = playersArray[0]
+                        match.p2.value = playersArray[1]
+                        match.p3.value = playersArray[2]
+                        match.p4.value = playersArray[3]
+                        match.location.value = document.get("location").toString()
+                        match.time.value = document.get("time").toString()
 
                         sharedViewModel.matchList.add(match)
                         sharedViewModel.matchList.forEach { match ->

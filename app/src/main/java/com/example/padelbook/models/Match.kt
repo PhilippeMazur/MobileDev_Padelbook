@@ -3,6 +3,7 @@ package com.example.padelbook.models
 import androidx.lifecycle.MutableLiveData
 
 class Match {
+    val date = MutableLiveData<String>()
     val p1 = MutableLiveData<String>()
     val p2 = MutableLiveData<String>()
     val p3 = MutableLiveData<String>()
