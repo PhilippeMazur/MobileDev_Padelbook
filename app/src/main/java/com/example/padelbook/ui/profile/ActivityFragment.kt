@@ -21,7 +21,6 @@ import com.example.padelbook.models.SharedViewModel
 
 class ActivityFragment : Fragment() {
     val sharedViewModel: SharedViewModel by activityViewModels()
-    lateinit var matchLV: ListView
     lateinit var matchList: MutableList<Match>
     private var _binding: FragmentActivityBinding? = null
     private val binding get() = _binding!!
@@ -32,9 +31,9 @@ class ActivityFragment : Fragment() {
     ): View? {
         _binding = FragmentActivityBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        matchList = sharedViewModel.matchList
 
-        val numbers = listOf("one", "two", "three", "four")
-        val adapter = ActivityAdapter(numbers)
+        val adapter = ActivityAdapter(matchList)
         val recyclerView = binding.matchRecyclerView
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())

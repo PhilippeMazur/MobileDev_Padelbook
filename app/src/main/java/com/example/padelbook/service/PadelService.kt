@@ -111,7 +111,8 @@ class PadelService {
 // Split the string into an array using commas as the delimiter
                         //val nameList: List<String> = thirdValue.split(",").map { it.trim() }
                         val players = document["players"].toString()
-                        val playersArray = players.split(", ")
+                        val trimmedPlayers = players.substring(1, players.length - 1)
+                        val playersArray = trimmedPlayers.split(", ")
                         val match = Match()
                         match.date.value = document.get("date").toString()
                         match.p1.value = playersArray[0]

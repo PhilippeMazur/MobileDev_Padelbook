@@ -6,9 +6,10 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center_horizontal">
+
     <androidx.cardview.widget.CardView
         android:layout_width="350dp"
-        android:layout_height="125dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         app:cardBackgroundColor="#E0F5FF"
         app:cardCornerRadius="25dp">
@@ -20,15 +21,55 @@
             android:padding="20dp">
 
             <TextView
-                android:id="@+id/text_preference_hand"
+                android:id="@+id/date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_semibold"
-                android:text="Text"
-                android:textSize="20sp" />
+                android:fontFamily="@font/poppins_light"
+                android:text="TextView"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_light"
+                android:text="TextView"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/player1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_light"
+                android:text="TextView"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/player2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_light"
+                android:text="TextView"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/player3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_light"
+                android:text="TextView"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/player4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_light"
+                android:text="TextView"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_light"
