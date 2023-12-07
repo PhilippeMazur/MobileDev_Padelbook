@@ -43,14 +43,47 @@ class ActivityFragment : Fragment() {
 }
 
 class MatchAdapter(context: Context, matches: List<Match>) : ArrayAdapter<Match>(context, 0, matches) {
+    // View lookup cache
+    private class ViewHolder {
+        lateinit var matchDate: TextView
+        lateinit var matchLocation: TextView
+        lateinit var p1: TextView
+        lateinit var p2: TextView
+        lateinit var p3: TextView
+        lateinit var p4: TextView
+        lateinit var matchTime: TextView
+
+    }
+
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val match = getItem(position)
-        val view = convertView ?: LayoutInflater.from(context).inflate(android.R.layout.simple_list_item_1, parent, false)
+        var viewHolder: ViewHolder
+        var view: View
 
-        // Assuming you have TextViews in your simple_list_item_1 layout with ids text1
-        val matchName = view.findViewById<TextView>(android.R.id.text1)
+        if (convertView == null) {
+            viewHolder = ViewHolder()
+            view = LayoutInflater.from(context).inflate(android.R.layout.simple_list_item_1, parent, false)
+            viewHolder.matchLocation = view.findViewById(android.R.id.text1)
+            viewHolder.matchDate = view.findViewById(android.R.id.text1)
+            viewHolder.p1 = view.findViewById(android.R.id.text1)
+            viewHolder.p2 = view.findViewById(android.R.id.text1)
+            viewHolder.p3 = view.findViewById(android.R.id.text1)
+            viewHolder.p4 = view.findViewById(android.R.id.text1)
+            viewHolder.matchTime = view.findViewById(android.R.id.text1)
 
-        matchName.text = match?.location?.value
+            view.tag = viewHolder
+        } else {
+            viewHolder = convertView.tag as ViewHolder
+            view = convertView
+        }
+
+        viewHolder.matchLocation.text = match?.location?.value
+        viewHolder.matchDate.text = match?.date?.value
+        viewHolder.p1.text = match?.p1?.value
+        viewHolder.p2.text = match?.p2?.value
+        viewHolder.p3.text = match?.p3?.value
+        viewHolder.p4.text = match?.p4?.value
+        viewHolder.matchTime.text = match?.time?.value
 
         return view
     }
