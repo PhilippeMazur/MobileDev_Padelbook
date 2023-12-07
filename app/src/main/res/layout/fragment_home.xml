@@ -71,7 +71,7 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="140dp"
+                android:layout_height="200dp"
                 android:layout_margin="20dp"
                 app:cardCornerRadius="50dp">
 
@@ -88,8 +88,17 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="20dp"
                         android:fontFamily="@font/poppins_light"
-                        android:text="Time"
+                        android:text="Date"
                         android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/editTextDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:ems="10"
+                        android:inputType="date" />
 
                     <Spinner
                         android:id="@+id/TextSpinner"

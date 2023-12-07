@@ -1,10 +1,13 @@
 package com.example.padelbook.ui.profile
 
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -38,6 +41,11 @@ class ProfileFragment : Fragment() {
         userNameTextView.text = sharedViewModel.Player.name.value
         locationTextView.text = sharedViewModel.Player.location.value
         matchesPlayedTextView.text = sharedViewModel.Player.matches.value
+
+        val decodedString = Base64.decode(sharedViewModel.Player.base64image, Base64.DEFAULT)
+        val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
+        val profilePicture = view.findViewById<ImageView>(R.id.profilePicture)
+        profilePicture.setImageBitmap(decodedByte)
 
         val tabLayout = view.findViewById<TabLayout>(R.id.navigationTabs)
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {

@@ -29,7 +29,8 @@ class ActivityFragment : Fragment() {
         val linear_layout = view.findViewById<LinearLayout>(R.id.linear_layout)
         for (item in sharedViewModel.matchList) {
             val textView1 = TextView(requireContext())
-            textView1.text = item.p1.value.toString()
+            textView1.text = item.location.value.toString()
+            textView1.height = 50;
 
             linear_layout.addView(textView1)
         }

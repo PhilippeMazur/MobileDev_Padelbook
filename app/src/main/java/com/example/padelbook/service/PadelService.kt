@@ -38,18 +38,16 @@ class PadelService {
             // Retrieve the document
             query.get().addOnSuccessListener { querySnapshot ->
                 for (document in querySnapshot) {
-
-                    //sharedViewModel.name.value = document.get("name").toString()
-
                     sharedViewModel.Player.name.value = document.get("name").toString()
                     sharedViewModel.Player.location.value = document.get("location").toString()
                     sharedViewModel.Player.matches.value = document.get("matches").toString()
+                    sharedViewModel.Player.base64image = document.get("image").toString()
                     sharedViewModel.Preferences.prefered_hand.value = document.get("prefered_hand").toString()
                     sharedViewModel.Preferences.prefered_position.value = document.get("prefered_position").toString()
                     sharedViewModel.Preferences.prefered_time.value = document.get("prefered_time").toString()
                     sharedViewModel.Preferences.prefered_match_type.value = document.get("prefered_match_type").toString()
 
-                    checkIfPlayerIsInMatch(sharedViewModel.Player.name.value.toString(), db, sharedViewModel)
+                    //checkIfPlayerIsInMatch(sharedViewModel.Player.name.value.toString(), db, sharedViewModel)
 
                     //sharedViewModel.location.value = document.get("location").toString()
                     //sharedViewModel.matches.value = document.get("matches").toString()
