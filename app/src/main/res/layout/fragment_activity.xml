@@ -11,11 +11,12 @@ android:layout_height="wrap_content">
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-
-        <ListView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/matchRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/match_list_view"/>
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"/>
 
     </LinearLayout>
 </ScrollView>
