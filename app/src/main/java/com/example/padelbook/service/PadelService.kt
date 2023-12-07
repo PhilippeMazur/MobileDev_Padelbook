@@ -104,11 +104,24 @@ class PadelService {
                     for (document in querySnapshot) {
                         // Handle each document
                         val valuesList: List<Any> = document.data.values.toList()
+                        //val nameList: List<String> = valuesList.get(2) as List<String>
+
+                        //val thirdValue: String = valuesList.getOrNull(2) as? String ?: ""
+
+// Split the string into an array using commas as the delimiter
+                        //val nameList: List<String> = thirdValue.split(",").map { it.trim() }
+                        val players = document["players"].toString()
+                        val trimmedPlayers = players.substring(1, players.length - 1)
+                        val playersArray = trimmedPlayers.split(", ")
                         val match = Match()
-                        match.p1.value = document.get("p1") as String
-                        match.p2.value = document.get("p2") as String
-                        match.p3.value = document.get("p3") as String
-                        match.p4.value = document.get("p4") as String
+                        match.date.value = document.get("date").toString()
+                        match.p1.value = playersArray[0]
+                        match.p2.value = playersArray[1]
+                        match.p3.value = playersArray[2]
+                        match.p4.value = playersArray[3]
+                        match.location.value = document.get("location").toString()
+                        match.time.value = document.get("time").toString()
+
                         sharedViewModel.matchList.add(match)
                         sharedViewModel.matchList.forEach { match ->
                             // Do something with match
@@ -116,6 +129,8 @@ class PadelService {
                             Log.d("matches", match.p2.value.toString())
                             Log.d("matches", match.p3.value.toString())
                             Log.d("matches", match.p4.value.toString())
+                            Log.d("matches", match.location.value.toString())
+                            Log.d("matches", match.time.value.toString())
 
                         }
                     }
