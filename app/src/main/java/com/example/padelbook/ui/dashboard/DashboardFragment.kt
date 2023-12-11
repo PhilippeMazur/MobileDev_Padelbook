@@ -29,8 +29,7 @@ class DashboardFragment : Fragment() {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val numbers = listOf("one", "two", "three", "four")
-        val adapter = CustomAdapter(sharedViewModel.matchList)
+        val adapter = CustomAdapter(sharedViewModel.allMatches, sharedViewModel.Player.name)
         val recyclerView = binding.recyclerView
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
