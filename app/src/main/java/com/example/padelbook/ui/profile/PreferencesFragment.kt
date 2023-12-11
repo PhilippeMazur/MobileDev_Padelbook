@@ -1,14 +1,12 @@
 package com.example.padelbook.ui.profile
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.fragment.findNavController
 import com.example.padelbook.R
 import com.example.padelbook.models.SharedViewModel
 
@@ -31,7 +29,7 @@ class PreferencesFragment : Fragment() {
         // ...
 
 
-        var hand = view.findViewById<TextView>(R.id.data_preference_hand)
+        var hand = view.findViewById<TextView>(R.id.date)
         var matchtype = view.findViewById<TextView>(R.id.data_preference_matchtype)
         var position = view.findViewById<TextView>(R.id.data_preference_position)
         var time = view.findViewById<TextView>(R.id.data_preference_time)

@@ -6,9 +6,11 @@ import androidx.navigation.NavController
 import com.example.padelbook.R
 import com.example.padelbook.models.CreateMatch
 import com.example.padelbook.models.Match
+import com.example.padelbook.models.Player
 import com.example.padelbook.models.SharedViewModel
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import kotlinx.coroutines.tasks.await
 
 
 class PadelService {
@@ -47,10 +49,8 @@ class PadelService {
                     sharedViewModel.Preferences.prefered_time.value = document.get("prefered_time").toString()
                     sharedViewModel.Preferences.prefered_match_type.value = document.get("prefered_match_type").toString()
 
-                    //checkIfPlayerIsInMatch(sharedViewModel.Player.name.value.toString(), db, sharedViewModel)
+                    checkIfPlayerIsInMatch(sharedViewModel.Player.name.value.toString(), db, sharedViewModel)
 
-                    //sharedViewModel.location.value = document.get("location").toString()
-                    //sharedViewModel.matches.value = document.get("matches").toString()
                 }
             }.addOnFailureListener { exception ->
                 Log.w("testing", "Error getting documents.", exception)
@@ -105,25 +105,32 @@ class PadelService {
                     for (document in querySnapshot) {
                         // Handle each document
                         val valuesList: List<Any> = document.data.values.toList()
-                        val nameList: List<String> = valuesList.get(0) as List<String>
+
+                        val players = document["players"].toString()
+                        val playersArray = players.split(", ")
                         val match = Match()
-                        match.p1.value = nameList.get(0)
-                        match.p2.value = nameList.get(1)
-                        match.p3.value = nameList.get(2)
-                        match.p4.value = nameList.get(3)
-                        match.location.value = valuesList.get(1).toString()
-                        match.time.value = valuesList.get(2).toString()
+                        match.date.value = document.get("date").toString()
+                        var namePlayer1 = playersArray[0].substring(1)
+                        val namePlayer4 = playersArray[3]
+                        var namePlayer42 = namePlayer4.substring(0, namePlayer4.length - 1)
+                        match.p1.value = namePlayer1
+                        match.p2.value = playersArray[1]
+                        match.p3.value = playersArray[2]
+                        match.p4.value = namePlayer42
+                        match.location.value = document.get("location").toString()
+                        match.time.value = document.get("time").toString()
 
                         sharedViewModel.matchList.add(match)
                         sharedViewModel.matchList.forEach { match ->
                             // Do something with match
-                            Log.d("matches", match.p1.value.toString())
+                            /*
+                            Log.d("matches", "player 1:"+match.p1.value.toString())
                             Log.d("matches", match.p2.value.toString())
                             Log.d("matches", match.p3.value.toString())
-                            Log.d("matches", match.p4.value.toString())
+                            Log.d("matches", "player 4:"+match.p4.value.toString())
                             Log.d("matches", match.location.value.toString())
                             Log.d("matches", match.time.value.toString())
-
+                            */
                         }
                     }
                 }
@@ -151,6 +158,25 @@ class PadelService {
                 Log.d("post", "$e")
 
             }
+    }
+    fun getPlayerByName(name: String, onPlayerLoaded: ((Player) -> Unit)?) {
+        val db = FirebaseFirestore.getInstance()
+        val player : Player = Player()
+        val query: Query = db.collection("users").whereEqualTo("name", name)
+
+        query.get().addOnSuccessListener { querySnapshot ->
+            for (document in querySnapshot) {
+                player.name.value = document.get("name").toString()
+                player.location.value = document.get("location").toString()
+                player.base64image = document.get("image").toString()
+                player.matches.value = document.get("matches").toString()
+            }
+
+            // Call the callback function when the Firestore query completes
+            onPlayerLoaded?.invoke(player)
+        }.addOnFailureListener { exception ->
+            Log.w("testing", "Error getting documents.", exception)
+        }
     }
 }
 

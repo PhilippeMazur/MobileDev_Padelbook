@@ -12,16 +12,19 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.padelbook.R
 import com.example.padelbook.databinding.FragmentHomeBinding
 import com.example.padelbook.models.CreateMatch
+import com.example.padelbook.models.SharedViewModel
 import com.example.padelbook.service.PadelService
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     val service: PadelService = PadelService();
+    val sharedViewModel: SharedViewModel by activityViewModels()
 
 
 
@@ -62,52 +65,17 @@ class HomeFragment : Fragment() {
         createMatch.date = view?.findViewById<EditText>(R.id.editTextDate)?.text.toString();
         createMatch.time = view?.findViewById<Spinner>(R.id.TextSpinner)?.selectedItem.toString()
 
-        val p1 = view?.findViewById<Spinner>(R.id.PlayerSpinner1)?.selectedItem.toString()
-        val p2 = view?.findViewById<Spinner>(R.id.playerSpinner2)?.selectedItem.toString()
-        val p3 = view?.findViewById<Spinner>(R.id.playerSpinner3)?.selectedItem.toString()
-        val p4 = view?.findViewById<Spinner>(R.id.playerSpinner4)?.selectedItem.toString()
+        val p1 = sharedViewModel.Player.name.value
+        val p2 = ""
+        val p3 = ""
+        val p4 = ""
 
-        createMatch.players[0] = p1
+        createMatch.players[0] = p1.toString()
+        createMatch.players[1] = p2
+        createMatch.players[2] = p3
+        createMatch.players[3] = p4
 
-        if(createMatch.players[0] != p2) {
-            createMatch.players[1] = p2
-        } else {
-            duplicate = true;
-        }
-
-        if((createMatch.players[0] != p3 && createMatch.players[1] != p3)) {
-            createMatch.players[2] = p3
-        }else {
-            duplicate = true;
-        }
-
-        if((createMatch.players[0] != p4 && createMatch.players[1] != p4 && createMatch.players[2] != p4)) {
-            createMatch.players[3] = p4
-        }else {
-            duplicate = true;
-
-        }
-
-
-        if(!duplicate) {
-            Log.d("DropdownSelection", createMatch.location)
-            Log.d("DropdownSelection", createMatch.time)
-            Log.d("DropdownSelection", createMatch.players[0])
-            Log.d("DropdownSelection", createMatch.players[1])
-            Log.d("DropdownSelection", createMatch.players[2])
-            Log.d("DropdownSelection", createMatch.players[3])
-
-            try {
-                service.createMatch(createMatch);
-                showDialog("Match has been created!")
-
-            } catch (e: Exception) {
-                Log.d("post", "An error occurred in handleCreateButtonClick: $e")
-            }
-        } else {
-            showDialog("Players can't be chosen more than once!")
-        }
-
+        service.createMatch(createMatch)
     }
 
     private fun showDialog(message: String) {

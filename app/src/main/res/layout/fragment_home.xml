@@ -112,67 +112,6 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="450dp"
-                android:layout_margin="20dp"
-                app:cardCornerRadius="50dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#E0F5FF"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/PlayersText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="20dp"
-                        android:fontFamily="@font/poppins_light"
-                        android:text="Players"
-                        android:textSize="20sp" />
-
-                    <Spinner
-                        android:id="@+id/PlayerSpinner1"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_margin="20dp"
-                        android:background="@color/white"
-                        android:entries="@array/playerSpinner_items"
-                        android:prompt="@string/playerSpinner_prompt" />
-
-                    <Spinner
-                        android:id="@+id/playerSpinner2"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_margin="20dp"
-                        android:background="@color/white"
-                        android:entries="@array/playerSpinner_items"
-                        android:prompt="@string/TimeSpinner_prompt" />
-
-                    <Spinner
-                        android:id="@+id/playerSpinner3"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_margin="20dp"
-                        android:background="@color/white"
-                        android:entries="@array/playerSpinner_items"
-                        android:prompt="@string/TimeSpinner_prompt" />
-
-                    <Spinner
-                        android:id="@+id/playerSpinner4"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:layout_margin="20dp"
-                        android:background="@color/white"
-                        android:entries="@array/playerSpinner_items"
-                        android:prompt="@string/TimeSpinner_prompt" />
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
             <Button
                 android:id="@+id/button"
                 android:layout_width="match_parent"

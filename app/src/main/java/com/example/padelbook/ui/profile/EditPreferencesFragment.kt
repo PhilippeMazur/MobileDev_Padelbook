@@ -15,6 +15,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -52,10 +53,11 @@ class EditPreferencesFragment : Fragment() {
         // Add any additional setup code here
         val profilePictureButton = view.findViewById<Button>(R.id.changeProfilePictureButton);
         var button = view.findViewById<TextView>(R.id.savePreferences)
-        val edit_preference_hand = view.findViewById<TextView>(R.id.edit_preference_hand)
-        val edit_preference_position= view.findViewById<TextView>(R.id.edit_preference_position)
-        val edit_preference_time= view.findViewById<TextView>(R.id.edit_preference_time)
-        val edit_preference_matchtype= view.findViewById<TextView>(R.id.edit_preference_matchtype)
+        //createMatch.location = view?.findViewById<Spinner>(R.id.LocationSpinner)?.selectedItem.toString()
+        val edit_preference_hand = view.findViewById<Spinner>(R.id.edit_preference_hand)
+        val edit_preference_position= view.findViewById<Spinner>(R.id.edit_preference_position)
+        val edit_preference_time= view.findViewById<Spinner>(R.id.edit_preference_time)
+        val edit_preference_matchtype= view.findViewById<Spinner>(R.id.edit_preference_matchtype)
 
         var base64Image = "";
 
@@ -87,20 +89,20 @@ class EditPreferencesFragment : Fragment() {
                     val docRef = db.collection("users").document(document.id)
                     if(base64Image != "") {
                         val prefs = mapOf(
-                            "prefered_hand" to edit_preference_hand.text.toString(),
-                            "prefered_position" to edit_preference_position.text.toString(),
-                            "prefered_time" to edit_preference_time.text.toString(),
-                            "prefered_match_type" to edit_preference_matchtype.text.toString(),
+                            "prefered_hand" to edit_preference_hand.selectedItem.toString(),
+                            "prefered_position" to edit_preference_position.selectedItem.toString(),
+                            "prefered_time" to edit_preference_time.selectedItem.toString(),
+                            "prefered_match_type" to edit_preference_matchtype.selectedItem.toString(),
                             "image" to base64Image
                         )
                         docRef.update(prefs).addOnSuccessListener { Log.d("updateDB", "Document successfully updated!") }
                             .addOnFailureListener { e -> Log.w("updateDB", "Error updating document", e) }
                     } else {
                         val prefs = mapOf(
-                            "prefered_hand" to edit_preference_hand.text.toString(),
-                            "prefered_position" to edit_preference_position.text.toString(),
-                            "prefered_time" to edit_preference_time.text.toString(),
-                            "prefered_match_type" to edit_preference_matchtype.text.toString()
+                            "prefered_hand" to edit_preference_hand.selectedItem.toString(),
+                            "prefered_position" to edit_preference_position.selectedItem.toString(),
+                            "prefered_time" to edit_preference_time.selectedItem.toString(),
+                            "prefered_match_type" to edit_preference_matchtype.selectedItem.toString()
                         )
                         docRef.update(prefs).addOnSuccessListener { Log.d("updateDB", "Document successfully updated!") }
                             .addOnFailureListener { e -> Log.w("updateDB", "Error updating document", e) }
@@ -108,10 +110,10 @@ class EditPreferencesFragment : Fragment() {
 
                 }
             }.addOnFailureListener { e -> Log.w("updateDB", "Error getting documents", e) }
-            sharedViewModel.Preferences.prefered_hand.value = edit_preference_hand.text.toString();
-            sharedViewModel.Preferences.prefered_position.value = edit_preference_position.text.toString();
-            sharedViewModel.Preferences.prefered_time.value = edit_preference_time.text.toString();
-            sharedViewModel.Preferences.prefered_match_type.value = edit_preference_matchtype.text.toString();
+            sharedViewModel.Preferences.prefered_hand.value = edit_preference_hand.selectedItem.toString();
+            sharedViewModel.Preferences.prefered_position.value = edit_preference_position.selectedItem.toString();
+            sharedViewModel.Preferences.prefered_time.value = edit_preference_time.selectedItem.toString();
+            sharedViewModel.Preferences.prefered_match_type.value = edit_preference_matchtype.selectedItem.toString();
             findNavController().navigateUp()
         }
     }
