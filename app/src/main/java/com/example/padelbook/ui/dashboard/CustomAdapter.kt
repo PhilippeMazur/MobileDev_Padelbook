@@ -66,7 +66,7 @@ class CustomAdapter(private val items: List<Match>, private val name: MutableLiv
                     holder.time.text = match.time.value
                     holder.location.text = match.location.value
 
-                    val decodedString1 = Base64.decode(base64Image, Base64.DEFAULT)
+                    val decodedString1 = Base64.decode(player1.base64image, Base64.DEFAULT)
                     val decodedByte1 = BitmapFactory.decodeByteArray(decodedString1, 0, decodedString1.size)
                     holder.profilePictureP1.setImageBitmap(decodedByte1)
                     holder.p1.text = player1.name.value
@@ -75,7 +75,7 @@ class CustomAdapter(private val items: List<Match>, private val name: MutableLiv
             service.getPlayerByName(match.p2.value.toString()) { player ->
                 player2 = player
                 if (player2 != null) {
-                    val decodedString1 = Base64.decode(base64Image, Base64.DEFAULT)
+                    val decodedString1 = Base64.decode(player2.base64image, Base64.DEFAULT)
                     val decodedByte1 = BitmapFactory.decodeByteArray(decodedString1, 0, decodedString1.size)
                     holder.profilePictureP2.setImageBitmap(decodedByte1)
                     holder.p2.text = player2.name.value
@@ -84,7 +84,7 @@ class CustomAdapter(private val items: List<Match>, private val name: MutableLiv
             service.getPlayerByName(match.p3.value.toString()) { player ->
                 player3 = player
                 if (player3 != null) {
-                    val decodedString1 = Base64.decode(base64Image, Base64.DEFAULT)
+                    val decodedString1 = Base64.decode(player3.base64image, Base64.DEFAULT)
                     val decodedByte1 = BitmapFactory.decodeByteArray(decodedString1, 0, decodedString1.size)
                     holder.profilePictureP3.setImageBitmap(decodedByte1)
                     holder.p3.text = player3.name.value
@@ -93,7 +93,7 @@ class CustomAdapter(private val items: List<Match>, private val name: MutableLiv
             service.getPlayerByName(match.p4.value.toString()) { player ->
                 player4 = player
                 if (player4 != null) {
-                    val decodedString1 = Base64.decode(base64Image, Base64.DEFAULT)
+                    val decodedString1 = Base64.decode(player4.base64image, Base64.DEFAULT)
                     val decodedByte1 = BitmapFactory.decodeByteArray(decodedString1, 0, decodedString1.size)
                     holder.profilePictureP4.setImageBitmap(decodedByte1)
                     holder.p4.text = player4.name.value
@@ -108,17 +108,17 @@ class CustomAdapter(private val items: List<Match>, private val name: MutableLiv
                     if(!checkIfPlayerIsInMatch(name, match)) {
                         showDialog("Successful", holder, match)
                         if(match.p2.value.toString() == "") {
-                            val decodedString1 = Base64.decode(player1.base64image, Base64.DEFAULT)
+                            val decodedString1 = Base64.decode(base64Image, Base64.DEFAULT)
                             val decodedByte1 = BitmapFactory.decodeByteArray(decodedString1, 0, decodedString1.size)
                             holder.profilePictureP2.setImageBitmap(decodedByte1);
                             holder.p2.text = name.value.toString();
                         } else if(match.p3.value.toString() == "") {
-                            val decodedString1 = Base64.decode(player1.base64image, Base64.DEFAULT)
+                            val decodedString1 = Base64.decode(base64Image, Base64.DEFAULT)
                             val decodedByte1 = BitmapFactory.decodeByteArray(decodedString1, 0, decodedString1.size)
                             holder.profilePictureP3.setImageBitmap(decodedByte1);
                             holder.p3.text = name.value.toString();
                         } else if(match.p4.value.toString() == "") {
-                            val decodedString1 = Base64.decode(player1.base64image, Base64.DEFAULT)
+                            val decodedString1 = Base64.decode(base64Image, Base64.DEFAULT)
                             val decodedByte1 = BitmapFactory.decodeByteArray(decodedString1, 0, decodedString1.size)
                             holder.profilePictureP4.setImageBitmap(decodedByte1);
                             holder.p4.text = name.value.toString();

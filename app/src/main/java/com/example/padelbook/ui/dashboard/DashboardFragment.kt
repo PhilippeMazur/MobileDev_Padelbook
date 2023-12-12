@@ -29,7 +29,7 @@ class DashboardFragment : Fragment() {
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val adapter = CustomAdapter(sharedViewModel.allMatches, sharedViewModel.Player.name)
+        val adapter = CustomAdapter(sharedViewModel.allMatches, sharedViewModel.Player.name, sharedViewModel.Player.base64image)
         val recyclerView = binding.recyclerView
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
