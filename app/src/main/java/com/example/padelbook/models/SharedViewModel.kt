@@ -11,5 +11,4 @@ class SharedViewModel : ViewModel() {
     val Player: Player = Player();
     val Preferences: Preferences = Preferences();
     val matchList: MutableList<Match> = mutableListOf();
-
 }
