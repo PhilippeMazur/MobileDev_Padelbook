@@ -20,13 +20,13 @@ import com.example.padelbook.models.Player
 import com.example.padelbook.models.SharedViewModel
 import com.example.padelbook.service.PadelService
 
-class CustomAdapter(private val items: List<Match>, private val name: MutableLiveData<String>) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+class CustomAdapter(private val items: List<Match>, private val name: MutableLiveData<String>, base64image: String) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
     val service: PadelService = PadelService();
     var player1: Player = Player();
     var player2: Player = Player();
     var player3: Player = Player();
     var player4: Player = Player();
-
+    var base64Image = base64image
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var date: TextView = itemView.findViewById(R.id.date)
         var time: TextView = itemView.findViewById(R.id.time)
@@ -54,7 +54,6 @@ class CustomAdapter(private val items: List<Match>, private val name: MutableLiv
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val match = items[position]
-
         holder.joinButton.visibility = View.VISIBLE
 
         Log.d("players", "location: " + match.p1.value.toString())
@@ -67,7 +66,7 @@ class CustomAdapter(private val items: List<Match>, private val name: MutableLiv
                     holder.time.text = match.time.value
                     holder.location.text = match.location.value
 
-                    val decodedString1 = Base64.decode(player1.base64image, Base64.DEFAULT)
+                    val decodedString1 = Base64.decode(base64Image, Base64.DEFAULT)
                     val decodedByte1 = BitmapFactory.decodeByteArray(decodedString1, 0, decodedString1.size)
                     holder.profilePictureP1.setImageBitmap(decodedByte1)
                     holder.p1.text = player1.name.value
@@ -76,7 +75,7 @@ class CustomAdapter(private val items: List<Match>, private val name: MutableLiv
             service.getPlayerByName(match.p2.value.toString()) { player ->
                 player2 = player
                 if (player2 != null) {
-                    val decodedString1 = Base64.decode(player2.base64image, Base64.DEFAULT)
+                    val decodedString1 = Base64.decode(base64Image, Base64.DEFAULT)
                     val decodedByte1 = BitmapFactory.decodeByteArray(decodedString1, 0, decodedString1.size)
                     holder.profilePictureP2.setImageBitmap(decodedByte1)
                     holder.p2.text = player2.name.value
@@ -85,7 +84,7 @@ class CustomAdapter(private val items: List<Match>, private val name: MutableLiv
             service.getPlayerByName(match.p3.value.toString()) { player ->
                 player3 = player
                 if (player3 != null) {
-                    val decodedString1 = Base64.decode(player3.base64image, Base64.DEFAULT)
+                    val decodedString1 = Base64.decode(base64Image, Base64.DEFAULT)
                     val decodedByte1 = BitmapFactory.decodeByteArray(decodedString1, 0, decodedString1.size)
                     holder.profilePictureP3.setImageBitmap(decodedByte1)
                     holder.p3.text = player3.name.value
@@ -94,7 +93,7 @@ class CustomAdapter(private val items: List<Match>, private val name: MutableLiv
             service.getPlayerByName(match.p4.value.toString()) { player ->
                 player4 = player
                 if (player4 != null) {
-                    val decodedString1 = Base64.decode(player4.base64image, Base64.DEFAULT)
+                    val decodedString1 = Base64.decode(base64Image, Base64.DEFAULT)
                     val decodedByte1 = BitmapFactory.decodeByteArray(decodedString1, 0, decodedString1.size)
                     holder.profilePictureP4.setImageBitmap(decodedByte1)
                     holder.p4.text = player4.name.value
@@ -112,18 +111,20 @@ class CustomAdapter(private val items: List<Match>, private val name: MutableLiv
                             val decodedString1 = Base64.decode(player1.base64image, Base64.DEFAULT)
                             val decodedByte1 = BitmapFactory.decodeByteArray(decodedString1, 0, decodedString1.size)
                             holder.profilePictureP2.setImageBitmap(decodedByte1);
-                            holder.p2.text = "test2";
+                            holder.p2.text = name.value.toString();
                         } else if(match.p3.value.toString() == "") {
                             val decodedString1 = Base64.decode(player1.base64image, Base64.DEFAULT)
                             val decodedByte1 = BitmapFactory.decodeByteArray(decodedString1, 0, decodedString1.size)
                             holder.profilePictureP3.setImageBitmap(decodedByte1);
-                            holder.p3.text = "test3";
+                            holder.p3.text = name.value.toString();
                         } else if(match.p4.value.toString() == "") {
                             val decodedString1 = Base64.decode(player1.base64image, Base64.DEFAULT)
                             val decodedByte1 = BitmapFactory.decodeByteArray(decodedString1, 0, decodedString1.size)
                             holder.profilePictureP4.setImageBitmap(decodedByte1);
-                            holder.p4.text = "test4";
+                            holder.p4.text = name.value.toString();
                         }
+
+                        service.updatePlayerInMatch(match.matchId, name)
                     } else {
                         showDialog("You are already registered!", holder, match)
                     }
@@ -135,11 +136,6 @@ class CustomAdapter(private val items: List<Match>, private val name: MutableLiv
     }
 
     private fun checkIfPlayerIsInMatch(name: MutableLiveData<String>, match: Match): Boolean {
-        Log.d("nametesting", name.value.toString())
-        Log.d("nametesting", match.p1.value.toString())
-        Log.d("nametesting", match.p2.value.toString())
-        Log.d("nametesting", match.p3.value.toString())
-        Log.d("nametesting", match.p4.value.toString())
         if(match.p1.value.equals(name.value.toString())) {
             Log.d("nametesting", "he is inside homie")
             return true

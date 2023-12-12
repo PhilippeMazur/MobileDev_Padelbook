@@ -2,12 +2,14 @@ package com.example.padelbook.service
 
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import com.example.padelbook.R
 import com.example.padelbook.models.CreateMatch
 import com.example.padelbook.models.Match
 import com.example.padelbook.models.Player
 import com.example.padelbook.models.SharedViewModel
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import kotlinx.coroutines.tasks.await
@@ -166,6 +168,7 @@ class PadelService {
                         match.p4.value = namePlayer42
                         match.location.value = document.get("location").toString()
                         match.time.value = document.get("time").toString()
+                        match.matchId = document.id // Assign the matchId
 
                         sharedViewModel.allMatches.add(match)
                     }
@@ -212,6 +215,36 @@ class PadelService {
             onPlayerLoaded?.invoke(player)
         }.addOnFailureListener { exception ->
             Log.w("testing", "Error getting documents.", exception)
+        }
+    }
+
+    fun updatePlayerInMatch(matchId: String, playerName: MutableLiveData<String>) {
+        val db = FirebaseFirestore.getInstance()
+        val matchRef = db.collection("matches").document(matchId)
+
+        // Retrieve the document
+        matchRef.get().addOnSuccessListener { document ->
+            val players = document.get("players") as List<String>
+            val emptyIndex = players.indexOf("")
+
+            if (emptyIndex != -1) {
+                // If an empty string is found, update the document
+                val updatedPlayers = players.toMutableList() // Create a mutable copy of the players list
+                updatedPlayers[emptyIndex] = playerName.value.toString() // Replace the empty string with the new player name
+
+                // Update the 'players' field with the modified list
+                matchRef.update("players", updatedPlayers)
+                    .addOnSuccessListener {
+                        Log.d("testing", "Document updated successfully.")
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.w("testing", "Error updating document.", exception)
+                    }
+            } else {
+                Log.d("testing", "No empty string found in 'players' array.")
+            }
+        }.addOnFailureListener { exception ->
+            Log.w("testing", "Error getting document.", exception)
         }
     }
 }
