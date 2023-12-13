@@ -32,6 +32,7 @@ class ActivityFragment : Fragment() {
         _binding = FragmentActivityBinding.inflate(inflater, container, false)
         val root: View = binding.root
         matchList = sharedViewModel.matchList
+        matchList = sortMatchesByDateDescending(matchList)
 
         val adapter = ActivityAdapter(matchList)
         val recyclerView = binding.matchRecyclerView
@@ -39,5 +40,10 @@ class ActivityFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         return root
+    }
+
+    private fun sortMatchesByDateDescending(matches: List<Match>): MutableList<Match> {
+        return matches.sortedByDescending { it.getDateAsDate() }
+            .toMutableList()
     }
 }
