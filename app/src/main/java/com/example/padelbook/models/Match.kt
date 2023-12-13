@@ -1,6 +1,9 @@
 package com.example.padelbook.models
 
 import androidx.lifecycle.MutableLiveData
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class Match {
     var matchId: String = "";
@@ -12,4 +15,13 @@ class Match {
     val location = MutableLiveData<String>()
     val time = MutableLiveData<String>()
 
+    fun getDateAsDate(): Date? {
+        val dateFormat = SimpleDateFormat("MM/dd/yyyy", Locale.US)
+        return try {
+            dateFormat.parse(date.value)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
 }

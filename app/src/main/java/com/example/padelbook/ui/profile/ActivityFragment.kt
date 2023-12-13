@@ -1,40 +1,48 @@
 package com.example.padelbook.ui.profile
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.LinearLayout
+import android.widget.ListView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.MutableLiveData
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.padelbook.R
+import com.example.padelbook.databinding.FragmentActivityBinding
+import com.example.padelbook.models.Match
 import com.example.padelbook.models.SharedViewModel
 
 class ActivityFragment : Fragment() {
     val sharedViewModel: SharedViewModel by activityViewModels()
+    lateinit var matchList: MutableList<Match>
+    private var _binding: FragmentActivityBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        _binding = FragmentActivityBinding.inflate(inflater, container, false)
+        val root: View = binding.root
+        matchList = sharedViewModel.matchList
+        matchList = sortMatchesByDateDescending(matchList)
+        val adapter = ActivityAdapter(matchList)
+        val recyclerView = binding.matchRecyclerView
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        return inflater.inflate(R.layout.fragment_activity, container, false)
+        return root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        super.onViewCreated(view, savedInstanceState)
-        val linear_layout = view.findViewById<LinearLayout>(R.id.linear_layout)
-        for (item in sharedViewModel.matchList) {
-            val textView1 = TextView(requireContext())
-            textView1.text = item.location.value.toString()
-            textView1.height = 50;
-
-            linear_layout.addView(textView1)
-        }
-
+    private fun sortMatchesByDateDescending(matches: List<Match>): MutableList<Match> {
+        return matches.sortedByDescending { it.getDateAsDate() }
+            .toMutableList()
     }
-
 }

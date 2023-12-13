@@ -35,7 +35,7 @@ class ProfileFragment : Fragment() {
 
         userNameTextView.text = sharedViewModel.Player.name.value
         locationTextView.text = sharedViewModel.Player.location.value
-        matchesPlayedTextView.text = sharedViewModel.Player.matches.value
+        matchesPlayedTextView.text = sharedViewModel.matchList.size.toString()
 
         val decodedString = Base64.decode(sharedViewModel.Player.base64image, Base64.DEFAULT)
         val decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
