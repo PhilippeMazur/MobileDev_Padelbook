@@ -31,8 +31,7 @@ class ActivityFragment : Fragment() {
     ): View? {
         _binding = FragmentActivityBinding.inflate(inflater, container, false)
         val root: View = binding.root
-        matchList = sharedViewModel.matchList
-        matchList = sortMatchesByDateDescending(matchList)
+        matchList = sortMatchesByDateDescending( sharedViewModel.matchList )
         val adapter = ActivityAdapter(matchList)
         val recyclerView = binding.matchRecyclerView
         recyclerView.adapter = adapter
