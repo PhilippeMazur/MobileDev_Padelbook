@@ -5,4 +5,78 @@
     <string name="title_notifications">Notifications</string>
     <string name="title_profile">Profile</string>
     <string name="intro">Welcome to our padel application. Here you can reserve a court. You can also go to the other tabs at the bottom of the page to navigate our app!</string>
+
+    <string-array name="LocationSpinner_items">
+        <item>Antwerp</item>
+        <item>Brussel</item>
+        <item>Londen</item>
+        <item>New York</item>
+    </string-array>
+
+    <string name="LocationSpinner_prompt">Select a location</string>
+
+    <string-array name="TimeSpinner_items">
+        <item>08:00</item>
+        <item>09:00</item>
+        <item>10:00</item>
+        <item>11:00</item>
+        <item>12:00</item>
+        <item>13:00</item>
+        <item>14:00</item>
+        <item>15:00</item>
+        <item>16:00</item>
+        <item>17:00</item>
+        <item>18:00</item>
+        <item>19:00</item>
+        <item>20:00</item>
+        <item>21:00</item>
+        <item>22:00</item>
+        <item>23:00</item>
+    </string-array>
+
+    <string name="TimeSpinner_prompt">Select a time</string>
+
+    <string-array name="playerSpinner_items">
+        <item>Philippe Mazur</item>
+        <item>Thomas Agterhuis</item>
+        <item>Nicolas Vanruysevelt</item>
+        <item>Salwa Azzouz</item>
+    </string-array>
+
+    <string name="playerSpinner_prompt">Select a player</string>
+
+    <string-array name="hand">
+        <item>Left</item>
+        <item>Right</item>
+        <item>Both</item>
+    </string-array>
+
+    <string name="hand_prompt">Select a player</string>
+
+    <string-array name="position">
+        <item>Left</item>
+        <item>Right</item>
+        <item>Both</item>
+    </string-array>
+
+    <string name="position_prompt">Select a player</string>
+
+    <string-array name="matchtype">
+        <item>friendly</item>
+        <item>competitive</item>
+        <item>Both</item>
+    </string-array>
+
+    <string name="matchtype_prompt">Select a player</string>
+
+    <string-array name="time">
+        <item>Morning</item>
+        <item>During the day</item>
+        <item>Night</item>
+        <item>Morning/Night</item>
+        <item>Anytime</item>
+    </string-array>
+
+    <string name="time_prompt">Select a player</string>
 </resources>
+

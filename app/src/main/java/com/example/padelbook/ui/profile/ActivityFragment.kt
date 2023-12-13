@@ -33,7 +33,6 @@ class ActivityFragment : Fragment() {
         val root: View = binding.root
         matchList = sharedViewModel.matchList
         matchList = sortMatchesByDateDescending(matchList)
-
         val adapter = ActivityAdapter(matchList)
         val recyclerView = binding.matchRecyclerView
         recyclerView.adapter = adapter

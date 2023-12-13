@@ -6,6 +6,7 @@ import java.util.Date
 import java.util.Locale
 
 class Match {
+    var matchId: String = "";
     val date = MutableLiveData<String>()
     val p1 = MutableLiveData<String>()
     val p2 = MutableLiveData<String>()
