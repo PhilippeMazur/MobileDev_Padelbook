@@ -17,8 +17,15 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.padelbook.R
 import com.example.padelbook.databinding.FragmentHomeBinding
 import com.example.padelbook.models.CreateMatch
+import com.example.padelbook.models.Match
 import com.example.padelbook.models.SharedViewModel
 import com.example.padelbook.service.PadelService
+import com.example.padelbook.ui.dashboard.CustomAdapter
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.ZoneId
+import java.util.Date
+import java.util.Locale
 
 class HomeFragment : Fragment() {
 
@@ -75,7 +82,19 @@ class HomeFragment : Fragment() {
         createMatch.players[2] = p3
         createMatch.players[3] = p4
 
-        service.createMatch(createMatch)
+
+        Log.d("post", getDateAsDate(createMatch.date).toString())
+        var matchDate = getDateAsDate(createMatch.date);
+        if (matchDate != null) {
+            val localDate = matchDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
+
+            if (localDate.isAfter(LocalDate.now())) {
+                //service.createMatch(createMatch)
+                showDialog("Match created!")
+            } else {
+                showDialog("Date is not available")
+            }
+        }
     }
 
     private fun showDialog(message: String) {
@@ -93,5 +112,22 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun showDialog(message: String, holder: CustomAdapter.ViewHolder, match: Match) {
+        val builder = AlertDialog.Builder(holder.itemView.context)
+        builder.setMessage(message)
+        builder.setPositiveButton("OK", null)
+        builder.show()
+    }
+
+    fun getDateAsDate(date: String): Date? {
+        val dateFormat = SimpleDateFormat("MM/dd/yyyy", Locale.US)
+        return try {
+            dateFormat.parse(date)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
     }
 }
