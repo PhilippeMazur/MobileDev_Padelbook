@@ -11,6 +11,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.padelbook.databinding.FragmentDashboardBinding
 import com.example.padelbook.models.SharedViewModel
+import com.example.padelbook.service.PadelService
+import com.google.firebase.firestore.FirebaseFirestore
 
 class DashboardFragment : Fragment() {
     val sharedViewModel: SharedViewModel by activityViewModels()
@@ -34,6 +36,9 @@ class DashboardFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
+        val db = FirebaseFirestore.getInstance();
+        val service: PadelService = PadelService();
+        service.getAllMatches(db, sharedViewModel)
         return root
     }
 

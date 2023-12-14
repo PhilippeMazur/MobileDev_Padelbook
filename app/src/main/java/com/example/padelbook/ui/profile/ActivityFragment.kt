@@ -18,6 +18,8 @@ import com.example.padelbook.R
 import com.example.padelbook.databinding.FragmentActivityBinding
 import com.example.padelbook.models.Match
 import com.example.padelbook.models.SharedViewModel
+import com.example.padelbook.service.PadelService
+import com.google.firebase.firestore.FirebaseFirestore
 
 class ActivityFragment : Fragment() {
     val sharedViewModel: SharedViewModel by activityViewModels()
@@ -29,6 +31,10 @@ class ActivityFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val db = FirebaseFirestore.getInstance();
+        val service: PadelService = PadelService();
+        service.checkIfPlayerIsInMatch(sharedViewModel.Player.name.value.toString() ,db, sharedViewModel);
+
         _binding = FragmentActivityBinding.inflate(inflater, container, false)
         val root: View = binding.root
         matchList = sortMatchesByDateDescending( sharedViewModel.matchList )

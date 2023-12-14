@@ -89,7 +89,7 @@ class HomeFragment : Fragment() {
             val localDate = matchDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
 
             if (localDate.isAfter(LocalDate.now())) {
-                //service.createMatch(createMatch)
+                service.createMatch(createMatch)
                 showDialog("Match created!")
             } else {
                 showDialog("Date is not available")

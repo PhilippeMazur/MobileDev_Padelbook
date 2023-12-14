@@ -101,6 +101,8 @@ class PadelService {
             .whereArrayContains("players", name)
             .get()
             .addOnSuccessListener { querySnapshot ->
+                sharedViewModel.matchList.clear() // Clear the list here
+
                 if (querySnapshot.isEmpty) {
                     // No matches found
                 } else {
@@ -146,10 +148,11 @@ class PadelService {
     }
 
     fun getAllMatches(db:FirebaseFirestore, sharedViewModel: SharedViewModel) {
-
         db.collection("matches")
             .get()
             .addOnSuccessListener { querySnapshot ->
+                sharedViewModel.allMatches.clear() // Clear the list here
+
                 if (querySnapshot.isEmpty) {
                     // No matches found
                 } else {
