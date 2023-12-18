@@ -60,5 +60,7 @@ dependencies {
     implementation("com.google.firebase:firebase-firestore-ktx:24.0.1")
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("com.google.firebase:firebase-storage:19.1.0")
+    implementation("org.osmdroid:osmdroid-android")
+    implementation("org.osmdroid:osmdroid-mapsforge:6.1.7")
 
 }
