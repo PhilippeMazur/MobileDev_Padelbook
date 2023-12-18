@@ -4,13 +4,14 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_profile">Profile</string>
+    <string name="title_map">Map</string>
     <string name="intro">Welcome to our padel application. Here you can reserve a court. You can also go to the other tabs at the bottom of the page to navigate our app!</string>
 
     <string-array name="LocationSpinner_items">
-        <item>Antwerp</item>
-        <item>Brussel</item>
-        <item>Londen</item>
-        <item>New York</item>
+        <item>The Box Antwerp</item>
+        <item>Antwerp padelclub Berchem</item>
+        <item>Antwerp padelclub Kontich</item>
+        <item>El Citadel Antwerp</item>
     </string-array>
 
     <string name="LocationSpinner_prompt">Select a location</string>
