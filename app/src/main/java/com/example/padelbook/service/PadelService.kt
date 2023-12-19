@@ -253,5 +253,27 @@ class PadelService {
             Log.w("testing", "Error getting document.", exception)
         }
     }
+
+    fun checkMatchExists(match: CreateMatch, callback: (Boolean) -> Unit) {
+        val db = FirebaseFirestore.getInstance()
+        val matchesCollection = db.collection("matches")
+
+        Log.d("checkmatch", match.location)
+        Log.d("checkmatch", match.date)
+        Log.d("checkmatch", match.time)
+        // Create a query to find the document with the matching date and time
+        val query: Query = matchesCollection
+            .whereEqualTo("location", match.location)
+            .whereEqualTo("date", match.date)
+            .whereEqualTo("time", match.time)
+
+        // Retrieve the document
+        query.get().addOnSuccessListener { querySnapshot ->
+            callback(querySnapshot.isEmpty)
+        }.addOnFailureListener { exception ->
+            Log.w("testing", "Error getting documents.", exception)
+            callback(false)
+        }
+    }
 }
 

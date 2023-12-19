@@ -89,8 +89,17 @@ class HomeFragment : Fragment() {
             val localDate = matchDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate()
 
             if (localDate.isAfter(LocalDate.now())) {
-                service.createMatch(createMatch)
-                showDialog("Match created!")
+                service.checkMatchExists(createMatch) { exists ->
+                    if (exists) {
+                        Log.d("checkmatch", "No match has been found with that data!")
+                        service.createMatch(createMatch)
+                        showDialog("Match created!")
+
+                    } else {
+                        Log.d("checkmatch", "A match with the same date and time already exists.")
+                        showDialog("Match with that data already exists!")
+                    }
+                }
             } else {
                 showDialog("Date is not available")
             }
