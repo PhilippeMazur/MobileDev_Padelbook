@@ -24,6 +24,12 @@
         tools:layout="@layout/fragment_profile" />
 
     <fragment
+        android:id="@+id/navigation_map"
+        android:name="com.example.padelbook.ui.map.MapFragment"
+        android:label="@string/title_map"
+        tools:layout="@layout/fragment_map" />
+
+    <fragment
 
         android:id="@+id/activityFragment"
         android:name="com.example.padelbook.ui.profile.ActivityFragment"
