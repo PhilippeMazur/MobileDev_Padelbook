@@ -5,7 +5,11 @@
     import android.view.View
     import android.view.ViewGroup
     import androidx.fragment.app.Fragment
+    import androidx.fragment.app.activityViewModels
     import com.example.padelbook.R
+    import com.example.padelbook.models.SharedViewModel
+    import com.example.padelbook.service.PadelService
+    import com.google.firebase.firestore.FirebaseFirestore
     import org.osmdroid.config.Configuration
     import org.osmdroid.views.MapView
     import org.osmdroid.tileprovider.tilesource.TileSourceFactory
@@ -13,8 +17,10 @@
     import org.osmdroid.views.overlay.Marker
     import java.io.File
 
+
     class MapFragment : Fragment() {
         private lateinit var mapView: MapView
+        private val sharedViewModel: SharedViewModel by activityViewModels()
 
         override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -50,30 +56,33 @@
             mapController.setZoom(12.0) // Set the zoom level
             mapController.setCenter(GeoPoint(51.2195, 4.4024)) // Set the center of the map
 
-            val marker1 = Marker(mapView)
-            marker1.position = GeoPoint(51.185824, 4.436123) // Antwerp
-            marker1.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
-            marker1.title = "Antwerp padelclub Berchem"
+            val fields = sharedViewModel.fields
+            mapView.overlays.clear()
 
-            val marker2 = Marker(mapView)
-            marker2.position = GeoPoint(51.195916,4.364045) // Another point near Antwerp
-            marker2.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
-            marker2.title = "The Box Antwerp"
+            // Observe the fields list in the SharedViewModel
+            for (field in fields) {
+                // Create a new Marker
+                val marker = Marker(mapView)
 
-            val marker3 = Marker(mapView)
-            marker3.position = GeoPoint(51.141062,4.432324) // Another point near Antwerp
-            marker3.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
-            marker3.title = "Antwerp padelclub Kontich"
+                // Get the latitude and longitude from the GeoPoint object
+                val latitude = field.location.value?.latitude
+                val longitude = field.location.value?.longitude
 
-            val marker4 = Marker(mapView)
-            marker4.position = GeoPoint(51.188819,4.485935) // Another point near Antwerp
-            marker4.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
-            marker4.title = "El Citadel Antwerp"
+                // Check if the latitude and longitude are not null
+                if (latitude != null && longitude != null) {
+                    // Create a new GeoPoint object
+                    val geoPoint = GeoPoint(latitude, longitude)
 
-            mapView.overlays.add(marker1)
-            mapView.overlays.add(marker2)
-            mapView.overlays.add(marker3)
-            mapView.overlays.add(marker4)
+                    // Set the position of the Marker based on the GeoPoint object
+                    marker.position = geoPoint
+                }
+
+                // Set the title of the Marker based on the name of the field
+                marker.title = field.name.value
+
+                // Add the Marker to the map overlays
+                mapView.overlays.add(marker)
+            }
 
             // Force the map to redraw itself
             mapView.invalidate()

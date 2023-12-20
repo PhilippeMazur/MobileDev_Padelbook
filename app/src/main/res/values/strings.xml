@@ -7,13 +7,6 @@
     <string name="title_map">Map</string>
     <string name="intro">Welcome to our padel application. Here you can reserve a court. You can also go to the other tabs at the bottom of the page to navigate our app!</string>
 
-    <string-array name="LocationSpinner_items">
-        <item>The Box Antwerp</item>
-        <item>Antwerp padelclub Berchem</item>
-        <item>Antwerp padelclub Kontich</item>
-        <item>El Citadel Antwerp</item>
-    </string-array>
-
     <string name="LocationSpinner_prompt">Select a location</string>
 
     <string-array name="TimeSpinner_items">
