@@ -10,10 +10,8 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Spinner
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import com.example.padelbook.R
 import com.example.padelbook.databinding.FragmentHomeBinding
 import com.example.padelbook.models.CreateMatch
@@ -53,6 +51,24 @@ class HomeFragment : Fragment() {
 
         val createButton: Button = root.findViewById(R.id.button)
 
+        val fieldNames = ArrayList<String>()
+        //sharedViewModel.fields.forEach()
+        for ( field in sharedViewModel.fields)
+        {
+            fieldNames.add(field.name.value.toString())
+        }
+
+        val spinner = binding.LocationSpinner
+
+        val spinnerArrayAdapter: ArrayAdapter<String> = ArrayAdapter<String>(
+            binding.root.context,
+            androidx.transition.R.layout.support_simple_spinner_dropdown_item,
+            fieldNames
+        )
+
+        spinner.setAdapter(spinnerArrayAdapter)
+
+        //selectFieldDinges.adapter =
 
         // Set an OnClickListener for the button
         createButton.setOnClickListener {
