@@ -55,7 +55,7 @@ class PadelService {
 
                     checkIfPlayerIsInMatch(sharedViewModel.Player.name.value.toString(), db, sharedViewModel)
                     getAllMatches(db, sharedViewModel)
-
+                    getAllFields(db, sharedViewModel)
                 }
             }.addOnFailureListener { exception ->
                 Log.w("testing", "Error getting documents.", exception)

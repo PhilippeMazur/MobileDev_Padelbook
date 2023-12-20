@@ -56,10 +56,6 @@
             mapController.setZoom(12.0) // Set the zoom level
             mapController.setCenter(GeoPoint(51.2195, 4.4024)) // Set the center of the map
 
-            val db = FirebaseFirestore.getInstance();
-            val service: PadelService = PadelService();
-            service.getAllFields(db, sharedViewModel)
-
             val fields = sharedViewModel.fields
             mapView.overlays.clear()
 
