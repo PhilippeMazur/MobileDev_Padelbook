@@ -6,11 +6,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import com.example.padelbook.R
 import com.example.padelbook.models.CreateMatch
+import com.example.padelbook.models.Field
 import com.example.padelbook.models.Match
 import com.example.padelbook.models.Player
 import com.example.padelbook.models.SharedViewModel
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.firestore.Query
 import kotlinx.coroutines.tasks.await
 
@@ -182,6 +184,33 @@ class PadelService {
             } .addOnFailureListener {
                 Log.d("matches", "error")
             }
+    }
+
+    fun getAllFields(db:FirebaseFirestore, sharedViewModel: SharedViewModel) {
+        // Get a reference to the 'fields' collection
+        val fieldsCollection = db.collection("fields")
+
+        // Retrieve all documents in the 'fields' collection
+        fieldsCollection.get().addOnSuccessListener { querySnapshot ->
+            // Clear the fields list before adding new fields
+            sharedViewModel.fields.clear()
+
+            // For each document in the querySnapshot
+            for (document in querySnapshot) {
+                // Create a new Field object
+                val field = Field()
+
+                // Set the properties of the Field object based on the data in the document
+                field.name.value = document.get("name").toString()
+                field.location.value = document.get("location") as GeoPoint
+
+                // Add the Field object to the fields list in the SharedViewModel
+                sharedViewModel.fields.add(field)
+            }
+
+        }.addOnFailureListener { exception ->
+            Log.w("testing", "Error getting documents.", exception)
+        }
     }
 
     fun createMatch(createMatch: CreateMatch) {
